@@ -5,6 +5,7 @@ import { SubscriptionsPage } from '../subscriptions/subscriptions';
 import { HomePage } from '../home/home';
 import { ProfilePage } from '../profile/profile';
 import { AuthProvider } from '../../providers/auth/auth';
+import { SearchPage } from '../search/search';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -15,7 +16,8 @@ export class TabsPage {
   tab2Root = SubscriptionsPage;
   tab3Root = AboutPage;
   tab4Root = ProfilePage;
-
+  tab5Root = SearchPage;
+	
 logInTitle = "SignIn";
 subsIcon = "icon-locked";
 

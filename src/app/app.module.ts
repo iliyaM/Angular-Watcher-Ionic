@@ -15,6 +15,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ItemTvPage } from '../pages/item-tv/item-tv';
 import { ItemMoviePage } from '../pages/item-movie/item-movie';
 import { ProfilePage } from '../pages/profile/profile';
+import { SearchPage } from '../pages/search/search';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -45,6 +46,7 @@ import { ChartsModule } from 'ng2-charts';
     ItemTvPage,
     ItemMoviePage,
     ProfilePage,
+    SearchPage,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,7 @@ import { ChartsModule } from 'ng2-charts';
     ItemTvPage,
     ItemMoviePage,
     ProfilePage,
+    SearchPage,
   ],
   providers: [
     StatusBar,

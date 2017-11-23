@@ -1,0 +1,56 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title item-start>
+			<h2 class="navTitle">Home Page</h2>
+			<div *ngIf="auth.user | async as user; else guest" class="avatarIcon" (click)="navigateToProfilePage()">
+				<h3>{{ user.displayName }}</h3>
+				<svg><use attr.xlink:href="assets/sprite.svg#{{user.avatar}}"></use></svg>
+			</div>
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+	  
+<!-- Template -->
+<ng-template #guest>
+	<!-- user.avatar -->
+	<div class="avatarNoUser" (click)="navigateToProfilePage()">
+		<i class="fa fa-user-o" aria-hidden="true"></i>
+		Welcome guest
+	</div>
+</ng-template>
+
+
+<ion-content>
+	<section class="search">
+		<!-- Search bar -->
+		<ion-searchbar
+			[(ngModel)]="myInput"
+			[showCancelButton]="shouldShowCancel"
+			(ionInput)="onInput($event)"
+			(ionCancel)="onCancel($event)">
+		</ion-searchbar>
+
+		<!-- Results -->
+		<div *ngIf="noSearch == false; else noResults">
+			<ul id="results">
+				<li *ngFor="let result of results" (click)="navigateToMedia(result.media_type, result.id)">
+					<div *ngIf="!result.poster_path; else hasImageTemplate" class="no_image">
+							<span class="noImage">
+								<i class="fa fa-battery-quarter"  aria-hidden="true"></i>
+							</span>
+							<p>{{ result.name }}</p>
+					</div>
+						
+						<!-- Image Template -->
+					<ng-template #hasImageTemplate>
+							<span><img src="{{imageSrc}}{{posterSizes.super_small}}{{result.poster_path}}" alt="{{ result.name }}"></span>
+							<p>{{ result.name }}</p> 
+					</ng-template> 
+				</li>	
+			</ul>
+		</div>
+	</section>
+	<ng-template #noResults>
+			<h5>Use the searchBar to serch for content</h5>	
+	</ng-template>
+</ion-content>

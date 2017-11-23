@@ -1,3 +1,42 @@
 page-about {
 
 }
+
+section.about {
+	box-sizing: border-box;
+	padding: 1em;
+	background: linear-gradient(90deg, #1E2931 25%, #394D5A 110%);
+	min-height: 100%;
+	color: $color_white;
+}
+
+section.about h4 {
+    color: white;
+}
+
+section.about a {
+	color: $color_orangeDark;
+	text-decoration: none;
+}
+
+div.contact a {
+    box-sizing: border-box;
+    padding: 1em 0;
+    display: block;
+    text-decoration: none;
+    color: $color_white;
+
+    & i {
+        display: inline-block;
+        vertical-align: middle;
+        padding-right: 0.5em;
+    }
+}
+
+div.contact a.email i {
+    color: #16C793;
+}
+
+div.contact a.github i {
+    color: $color_orangeDark;
+}

@@ -1,0 +1,209 @@
+page-profile {
+
+}
+div.profile {
+    background-color: $color_cream;
+}
+
+section.statistics,
+section.mainProfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 1em;
+    flex-wrap: wrap;
+}
+
+//Avatar box
+div.profileInfo,
+div.formContainer,
+div.avatarBox,
+div.chart {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0;
+    border: 1px solid black;
+    background-color: $color_white;
+    box-shadow: 0px 3px 5px 2px $color_greyLight;
+    
+    & h2 {
+        text-align: center;
+        margin: 0;
+        padding: 1em 0;
+        background-color: $color_greyMedium;
+        color: $color_white;
+
+        &:before {
+            display: none;
+        }
+    }
+}
+
+div.profileInfo p {
+    color: black;
+}
+
+div.profileInfo h4:before {
+    color: $color_bg;
+    width: 75%;
+}
+
+div.avatarBox div.genderSwitchers {
+    display: flex;
+    justify-content: space-between;
+    
+    & button {
+        padding: 1em;
+        margin: 0.5em;
+
+        border: 1px solid transparent;
+        border-radius: 100%;
+        font-size: 25px;
+        background-color: #1D8CFF;
+        color: $color_white;
+        font-weight: 700;
+    }
+
+    & button.female {
+        background-color: #FE73AC
+    }
+}
+
+
+div.avatarBox div.icons {
+    box-sizing: border-box;
+    padding: 1em 0;
+}
+
+div.avatarBox div.icons svg {
+    display: block;
+    margin: 1em auto;
+    box-shadow: 0px 0px 2px 2px rgba(53, 51, 53, 0.46);
+    // border: 1px solid black;
+    border-radius: 20px;
+    padding: 1em 0;
+}
+
+div.avatarBox div.icons div.buttons {
+    display: flex;
+    justify-content: space-between;
+    
+    & button {
+        width: 50%;
+        padding: 1em;
+        margin: 0.5em;
+
+        background-color: $color_purple;
+        color: $color_white;
+        border: none;
+        font-size: 20px;
+        border-radius: 5px;
+    }
+}
+
+
+
+//Form
+div.formContainer form {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 1em;
+}
+
+div.formContainer form label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2em;
+
+    & input {
+        box-sizing: border-box;
+        padding: 1em;
+        border: none;
+        border-bottom: 1px solid $color_orangeDark;
+        width: 100%;
+        font-size: 20px;
+    }
+}
+
+div.formContainer form label.randomizer button {
+    width: 80%;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: $color_blueDeep;
+    color: $color_white;
+    border-radius: 5px;
+}
+
+button.singInButton,
+div.avatarBox button.avatarButton,
+div.formContainer form > button {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 2em;
+
+    background-color: $color_blueShine;
+    color: $color_white;
+    border-radius: 5px;
+    padding: 2em;
+}
+
+//Info Box
+div.info div.content {
+    box-sizing: border-box;
+    padding: 1em;
+
+    & h4 {
+        margin: 0;
+        padding: 0.5em 0;
+        color: $color_orangeDark;
+
+        &:before {
+            width: 75%;
+        }
+    }
+
+    & p {
+        margin: 0.5em 0;
+        color: black;
+    }
+}
+
+section.signIn {
+	min-height: 100%;
+	position: relative;
+
+	background-image: url('../assets/imgs/rocket.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+
+	& button.singInButton {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 50%;
+		padding: 2em;
+		color: $color_white;
+		background-color: $color_blueShine;
+	}
+}
+
+//Subscriber
+button.signOut {
+	border-radius: 10px;
+	border: 1px solid #34495e;
+	background-color: $color_danger;
+	color: $color_white;
+
+	font-size: 1.1em;
+	padding: 1em;
+    width: 50%;
+    margin: 1em auto;
+    display: block;
+}

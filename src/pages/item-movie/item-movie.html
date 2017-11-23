@@ -1,0 +1,39 @@
+<!--
+  Generated template for the ItemMoviePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>item-movie</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <section class="movie" *ngIf="MovieItem">
+
+          <div *ngIf="MovieItem.main_image; else noImage" class="image">
+              <img src="{{imageSrc}}{{posterSizes.medium}}{{MovieItem.main_image}}" alt="{{MovieItem.title}}">
+          </div>
+        
+          <div class="movie_info">
+            <h2>{{MovieItem.title}}</h2>
+            <p>{{MovieItem.overview}}</p>
+            <p>Release Date: {{MovieItem.release_date}}</p>
+            <p>Status: {{MovieItem.status}}</p>
+            <h3>Cannot Follow Movies yet</h3>
+          </div>
+        
+        </section>
+
+        <!-- No Image Template -->
+        <ng-template #noImage>
+            <span class="noImage">
+              <i class="fa fa-battery-quarter"  aria-hidden="true"></i>
+            </span>
+        </ng-template>
+</ion-content>

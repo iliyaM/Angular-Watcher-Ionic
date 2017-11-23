@@ -41,6 +41,97 @@ $colors: (
   dark:       #222
 );
 
+$color_bg: #1E2931;
+$color_greyLight: #a9a5ab;
+$color_blueDark: #354052;
+$color_orangeDark: #e3a74d;
+$color_blueDeep: #6e7d94;
+$color_purple: #333c4b;
+$color_brown: #937f5f;
+$color_hover: #2B3443;
+$color_greyText: #B9BFCA;
+$color_blueShine: #00B4FE;
+$color_greyMedium: #6F7E95;
+$color_white: #f9fafb;
+$color_cream: #EDF2F6;
+$color_danger: #f53d3d;
+
+@mixin darkbutton() {
+  color: $color_white;
+  background-color: $color_purple;
+  padding: 1em;
+  border-radius: 5px;
+  transition: all 0.3s;
+  border: none;
+
+  &:hover {
+      transform: scale(1.1);
+      color: $color_blueShine;
+  }
+}
+
+//Navbar style for all pages
+div.toolbar-title.toolbar-title-md {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.toolbar-title.toolbar-title-md h2 {
+  color: $color_bg;
+  padding: 0;
+  margin:0;
+  font-size: 2rem;
+  &:before {
+    display: none;
+  }
+
+}
+
+div.avatarIcon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+div.avatarIcon svg {
+  width: 2em;
+  height: 2em;
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px solid $color_bg;
+  border-radius: 25px;
+}
+
+div.avatarIcon h3 {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1.5rem;
+  color: $color_bg;
+  margin: 0;
+  margin-right: 0.5em;
+}
+
+
+section.signIn {
+	min-height: 100%;
+	position: relative;
+
+	background-image: url('../assets/imgs/rocket.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+
+	& button.singInButton {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 50%;
+		padding: 2em;
+		color: $color_white;
+		background-color: $color_blueShine;
+	}
+}
 
 // App iOS Variables
 // --------------------------------------------------
@@ -78,7 +169,7 @@ $colors: (
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
 
-@import "ionic.ionicons";
+@import "ionicons";
 
 
 // Fonts
@@ -86,3 +177,4 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+

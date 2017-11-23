@@ -1,0 +1,85 @@
+page-subscriptions {
+
+//Subscriptions
+section.subscriptions {
+	
+	& h2 {
+		position: relative;
+		margin: 0;
+		text-align: center;
+		
+		display: flex;
+		flex-direction: column;
+		color: $color_orangeDark;
+		font-weight: 400;
+		margin-bottom: 1em;
+
+		&:before {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: -50%;
+			transform: translate(-50%, -50%);
+			width: 50%;
+			height: 2px;
+			background-color: $color_orangeDark;
+		}
+	}
+}
+
+div.subItem {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border:1px solid grey;
+	border-radius: 15px 0 0 15px;
+	box-shadow: 0px 3px 5px 2px $color_greyLight;
+	margin: 0.5em;
+
+	& img {
+		display: block;
+		width: 50%;
+		border-radius: 15px 0 0 15px;
+	}
+
+	& div.subInfo {
+		margin: 1em;
+
+		& h4 {
+			color: $color_orangeDark;
+		}
+	}
+}
+
+section.signIn {
+	min-height: 100%;
+	position: relative;
+
+	background-image: url('../assets/imgs/rocket.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+
+	& button.singInButton {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 50%;
+		padding: 2em;
+		color: $color_white;
+		background-color: $color_blueShine;
+	}
+}
+
+}
+
+button.showPage {
+	background-color: $color_blueDeep;
+	color: $color_white;
+}
+
+button.removeShow {
+	background-color: $color_brown;
+	color: $color_white;
+}

@@ -1,17 +1,42 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+    <ion-navbar>
+  
+	<ion-title item-start>
+      <h2 class="navTitle">Home Page</h2>
+		<div *ngIf="auth.user | async as user; else guest" class="avatarIcon" (click)="navigateToProfilePage()">
+			<h3>{{ user.displayName }}</h3>
+			<svg><use attr.xlink:href="assets/sprite.svg#{{user.avatar}}"></use></svg>
+		</div>
+	</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <!-- Template -->
+  <ng-template #guest>
+    <!-- user.avatar -->
+    <div class="avatarNoUser" (click)="navigateToProfilePage()">
+      <i class="fa fa-user-o" aria-hidden="true"></i>
+      Welcome guest
+    </div>
+  </ng-template>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  
+<section class="topTen">
+  
+    <h2>Pupular Tv Shows</h2>
+    <div class="tv">
+      <div *ngFor= "let tv of tvList; let i = index" class="item" (click)="navigateToTvItem(tv.id)">
+          <img src="{{imageSrc}}{{ tv.posters }}" alt="{{tv.name}}" style="width: 100%;">
+      </div>
+    </div>
+  
+    <h2>Popular Movies</h2>
+    <div class="movies">
+      <div *ngFor= "let movie of movieList; let i = index" class="item" (click)="navigateToMovieItem(movie.id)">
+        <img src="{{imageSrc}}{{movie.posters}}" alt="{{movie.title}}">
+      </div>
+    </div>
+  </section>
+
 </ion-content>

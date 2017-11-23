@@ -1,0 +1,61 @@
+<ion-header>
+		<ion-navbar>
+	
+		<ion-title item-start>
+			<h2 class="navTitle">Profile Page</h2>
+			<div *ngIf="auth.user | async as user; else guest" class="avatarIcon" (click)="navigateToProfilePage()">
+				<h3>{{ user.displayName }}</h3>
+				<svg><use attr.xlink:href="assets/sprite.svg#{{user.avatar}}"></use></svg>
+			</div>
+		</ion-title>
+		</ion-navbar>
+	</ion-header>
+	
+	<!-- Template -->
+	<ng-template #guest>
+		<!-- user.avatar -->
+		<div class="avatarNoUser">
+			<i class="fa fa-user-o" aria-hidden="true"></i>
+			Welcome guest
+		</div>
+	</ng-template>
+
+<ion-content>
+	<!-- Subscriptions -->
+	<div *ngIf="auth.user | async as user; else signIn">
+		<section class="subscriptions">
+			<h2>Following:</h2>
+
+			<ion-list *ngFor="let show of mySubscriptions" class="subItem">
+
+				<ion-item-sliding #item>
+					
+					<ion-item>
+							<img src="https://image.tmdb.org/t/p/w342{{show.poster }}" alt="{{show.name}}">
+							<h4>{{ show.title }}</h4>
+					</ion-item>
+
+					<ion-item-options side="left">
+						<button class="showPage">
+							<i class="fa fa-sign-in" aria-hidden="true"></i>
+							Show's Page</button>
+					</ion-item-options>
+
+					<ion-item-options side="right">
+						<button (click)="stopFollowing(user.userId, show.title, show.id)" class="removeShow">
+								<i class="fa fa-trash-o" aria-hidden="true" style="padding-right: 5px;"></i>Remove Show
+							</button>
+					</ion-item-options>
+
+				</ion-item-sliding>
+
+			</ion-list>
+		</section>
+	</div>
+
+	<ng-template #signIn>
+			<section class="signIn">
+				<button class="singInButton" (click)="auth.googleLogin()">Sign In</button>
+			</section>
+		</ng-template>
+</ion-content>

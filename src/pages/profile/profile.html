@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-navbar>
+
+	<ion-title item-start>
+		<h2 class="navTitle">Profile Page</h2>
+		<div *ngIf="auth.user | async as user; else guest" class="avatarIcon" (click)="navigateToProfilePage()">
+			<h3>{{ user.displayName }}</h3>
+			<svg><use attr.xlink:href="assets/sprite.svg#{{user.avatar}}"></use></svg>
+		</div>
+	</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<!-- Template -->
+<ng-template #guest>
+	<!-- user.avatar -->
+	<div class="avatarNoUser">
+		<i class="fa fa-user-o" aria-hidden="true"></i>
+		Welcome guest
+	</div>
+</ng-template>
+
+<ion-content>
+	<div *ngIf="auth.user | async as user; else signIn" class="profile">
+		<section class="mainProfile">
+			<!-- Avatar changing box -->
+			<div class="avatarBox">
+				<h2>Choose your Avatar</h2>
+				<div class="genderSwitchers">
+					<button (click)="male = true; index = 0" class="fa fa-mars male"></button>
+					<button (click)="male = false; index = 0" class="fa fa-venus female"></button>
+				</div>
+	
+				<div *ngIf="male; else female" class="icons">
+					<svg><use attr.xlink:href="assets/menIcons.svg#{{menAvatars[index]}}"></use></svg>
+					<div class="buttons">
+							<button (click)="prev(menAvatars)" class="fa fa-arrow-left arrowLeft"></button>
+							<button (click)="next(menAvatars)" class="fa fa-arrow-right arrowRight"></button>
+					</div>
+				</div>
+				<ng-template #female>
+					<div class="icons">
+						<svg><use attr.xlink:href="assets/womenIcons.svg#{{womenAvatars[index]}}"></use></svg>
+			
+						<div class="buttons">
+								<button (click)="prev(womenAvatars)" class="fa fa-arrow-left arrowLeft"></button>
+								<button (click)="next(womenAvatars)" class="fa fa-arrow-right arrowRight"></button>
+						</div>
+					</div>
+				</ng-template>
+
+				<button type="submit" class="submitBtn" [disabled]="singupForm.invalid" class="avatarButton">Confirm</button>
+			</div>
+	
+		<!-- Form Container -->
+		<div class="formContainer">
+			<h2>Change Name</h2>
+			<form [formGroup]="singupForm" (ngSubmit)="signUpFormSubmit()" id="signUpForm">
+					<label class="displayName">
+						<input
+							type="displayName"
+							[placeholder]="user.displayName"
+							[formControl]="singupForm.controls['displayName']">
+						<div class="error" *ngIf="displayNameError"><p>{{displayNameError}}</p></div>
+					</label>
+		
+					<label class="randomizer">
+						<button (click)="generateRandom()">Name Randomizer</button>
+					</label>
+				<button type="submit" class="submitBtn" [disabled]="singupForm.invalid">Confirm</button>
+			</form>
+		</div>
+	
+		<!-- Info box -->
+		<div class="profileInfo">
+			<h2>Important Information</h2>
+			<div class="content">
+				<h4>Avatar</h4>
+				<p>You can Choose and replace you avatar image anytime with gender options and the arrows. Ninjas will be added soon in the future</p>
+
+				<h4>UserName</h4>
+				<p>On your first login your information is populated through your google account, you name is optional you can leave it as is or change it.
+					you can also generate one.
+				</p>
+
+				<h4>Email</h4>
+				<p>Your email is stored in the database. It is collected from your google account.
+					It will not be displayed here. And you cannot change it.
+					You will be notified of new upcoming episodes from the series you subscribed to.
+				</p>
+
+				<h4>Notifications and Usage</h4>
+				<p>You will be notified when a new episode is coming out tomorrow and notified again on the day it came out.</p>
+				<p>If you would like to stop following a series you can remove it from the list of subscriptions below.</p>
+
+				<h4>Important Notes</h4>
+				<p>You will not receive any commercial emails or updates or anything not related to the purpose of this app.</p>
+				<p>Developers information is located in the sidebar. Contact me directly for any anything.</p>
+			</div>
+		</div>
+		</section>
+	
+		<!-- Statistics -->
+	
+		<section class="statistics">
+			<div style="width: 100%;" *ngIf="dataArrived" class="chart">
+				<h2 class="statistics_header">Statistics:</h2>
+				<canvas baseChart 
+					[data]="doughnutChartData"
+					[labels]="doughnutChartLabels"
+					[chartType]="doughnutChartType"
+					[options]="options"
+					[colors]="colors"
+					>
+				</canvas>
+			</div>
+			
+			<!-- Signout -->
+			<button class="signOut" (click)="auth.signOut()">SingOut</button>
+		</section>
+	</div>
+
+	<ng-template #signIn>
+		<section class="signIn">
+			<button class="singInButton" (click)="googleLogin()">SignIn</button>
+		</section>
+	</ng-template>
+	
+</ion-content>
+

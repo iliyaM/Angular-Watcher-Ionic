@@ -1,0 +1,111 @@
+<ion-header>
+    <ion-navbar>
+  
+	<ion-title item-start>
+      <h2 class="navTitle">Home Page</h2>
+		<div *ngIf="auth.user | async as user; else guest" class="avatarIcon" (click)="navigateToProfilePage()">
+			<h3>{{ user.displayName }}</h3>
+			<svg><use attr.xlink:href="assets/sprite.svg#{{user.avatar}}"></use></svg>
+		</div>
+	</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+<!-- Template -->
+<ng-template #guest>
+    <!-- user.avatar -->
+    <div class="avatarNoUser" (click)="navigateToProfilePage()">
+      <i class="fa fa-user-o" aria-hidden="true"></i>
+      Welcome guest
+    </div>
+</ng-template>
+
+<ion-content>
+    <section class="tvItem" *ngIf="tvItem">
+        
+          <h2>{{tvItem.title}}</h2>
+          <div class="content">
+            <div *ngIf="tvItem.poster; else noImage" class="image">
+              <img src="{{imageSrc}}{{posterSizes.large}}{{tvItem.poster }}" alt="{{tvItem.name}}">
+            </div>
+        
+            <div class="info">
+              <p>summery: {{ tvItem.overview }}</p>
+              <p>Release date: {{ tvItem.first_air_date }}</p>
+              <p>Seasons: {{ tvItem.number_of_seasons }}</p>
+              <p>Episodes: {{ tvItem.number_of_episodes }}</p>
+        
+              <div *ngIf="tvItem.status == 'Returning Series'; else cancled">
+                <p class="text-success">{{ tvItem.status }}</p>
+              </div>
+        
+              <!-- Subscribe Component -->
+              <button (click)="followInit()" class="subscriber">Follow</button>
+            </div>
+          </div>
+        
+          <div class="creators">
+            <h4>Creators:</h4>
+            <ul>
+              <li *ngFor="let creator of tvItem.creators" class="creator">{{creator.name}}</li>
+            </ul>
+          </div>
+        
+          <div class="seasons">
+            <h2>Sesons</h2>
+            <ul>
+              <li *ngFor="let season of tvItem.seasons" (click)="selectSeason(season.season_number)">
+                {{season.season_number}}
+              </li>
+            </ul>
+          </div>
+     </section>
+          <!-- Season section -->
+          <section class="seasonInfo" *ngIf="seasonInfo">
+
+              <div class="seasonOverview" id="season">
+                  <div class="thumnbnail">
+                    <div *ngIf="seasonInfo.poster; else noImage">
+                      <img src="https://image.tmdb.org/t/p/{{posterSizes.medium}}{{seasonInfo.poster}}" alt="{{seasonInfo.name}}">
+                    </div>
+                  </div>
+                  <div class="seasonContent">
+                    <h2>{{ seasonInfo.name }}</h2>
+                    <p>Summery: {{seasonInfo.overview}}</p>
+                    <p>Released on: {{seasonInfo.release_data}}</p>
+                    <p>Episodes: {{seasonInfo.episodes.length}}</p>
+                  </div>
+              </div>
+                
+                <div class="episodes_list">
+                  <ul>
+                    <li *ngFor="let episode of seasonInfo.episodes" class="episode">
+                      <div class="info">
+                        <h4>Episode: {{episode.number}}</h4>
+                        <p class="episodeName">Name: {{ episode.name }}</p>
+                        <p>Summery: {{episode.overview}}</p>
+                        <p class="episodeRelease">Released: {{ episode.release_date }}</p>
+                      </div>
+                      <div *ngIf="episode.poster; else noImage">
+                        <img src="{{imageSrc}}{{posterSizes.large}}{{episode.poster}}" alt="{{episode.name}}">
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+          </section>
+
+</ion-content>
+
+
+
+        <!-- No Image Template -->
+        <ng-template #noImage>
+            <span class="noImage">
+              <i class="fa fa-battery-quarter"  aria-hidden="true"></i>
+            </span>
+        </ng-template>
+
+        <!-- cancled -->
+        <ng-template #cancled>
+          <p class="text-danger">{{ tvItem.status }}</p>
+        </ng-template> -->

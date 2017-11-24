@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 //Providers
@@ -56,7 +55,6 @@ imageSrc:string = `https://image.tmdb.org/t/p/${this.posterSizes.small}`;
       movieId: movieId
     });
   }
-
 
   navigateToProfilePage() {
 		this.navCtrl.push(ProfilePage);

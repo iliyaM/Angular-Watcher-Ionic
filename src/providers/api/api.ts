@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 //Rxjs
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+
 
 import 'rxjs/add/operator/map';
 import * as Rx from "rxjs/Rx";
@@ -19,12 +19,6 @@ import { TvEpisode } from '../../interfaces/tv-episode';
 import { TvCreators } from '../../interfaces/tv-creators';
 import { MediaItem } from '../../interfaces/media_item';
 
-/*
-  Generated class for the ApiProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class ApiProvider {
 

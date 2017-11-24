@@ -36,6 +36,9 @@ import { firebaseConfig } from '../interfaces/firebaseConfig';
 //Chart
 import { ChartsModule } from 'ng2-charts';
 
+//GooglePlus
+import { GooglePlus } from '@ionic-native/google-plus';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -74,6 +77,7 @@ import { ChartsModule } from 'ng2-charts';
   ],
   providers: [
     StatusBar,
+    GooglePlus,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ApiProvider,

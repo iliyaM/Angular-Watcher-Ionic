@@ -1,12 +1,8 @@
-import { Http, Headers, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 // Rxjs
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/map'
 
 //Interfaces Classes
 import { Message } from '../../interfaces/message';
@@ -14,7 +10,6 @@ import { User } from '../../interfaces/user';
 
 
 //FireBase
-import * as firebase from 'firebase';
 import { AuthProvider } from '../auth/auth';
 import { ApiProvider } from '../api/api';
 
@@ -30,10 +25,6 @@ interface Subscriber {
   email: string,
 }
 
-interface PopupMessage {
-	title: string,
-	content: string,
-}
 
 @Injectable()
 export class DbProvider {
@@ -41,7 +32,7 @@ export class DbProvider {
 messageRef: Subscription;
 subscriptionsList: Subscription;
 
-  constructor(private http: Http, private afs: AngularFirestore, public authService: AuthProvider, private api:ApiProvider) { }
+  constructor(private afs: AngularFirestore, public authService: AuthProvider, private api:ApiProvider) { }
 	//Handles on follow and pupulates 3 collections ONstage User and Subscriptions
 	populateFirestore(data) {
 		// Subsctiptions collections handles tv shows by id and user that subscribed to is for notifications.
@@ -94,8 +85,6 @@ subscriptionsList: Subscription;
 		let api: Subscription;
 		let data:Array<object> = [];
 
-		let myObservable:Observable<any>;
-
 		this.authService.user.subscribe(res => {
 			if(res != null) {
 				this.subscriptionsList = this.afs.collection(`users/${res.userId}/subscriptions`, ref => { return ref.where('showId', '>', 0) } ).valueChanges().subscribe(res => {
@@ -118,23 +107,6 @@ subscriptionsList: Subscription;
 	removeSubscription(userId, showName, showId) {
 		this.afs.doc(`subscriptions/tv-shows/${showId}/${userId}`).delete();
 		this.afs.doc(`users/${userId}/subscriptions/${showName}`).delete();
-	}
-
-	//Custom made db collections for popup messages
-	activatePopup(documentName) {
-		let message = {
-			title: '',
-			content: '',
-			modalOpen: false,
-		}
-
-		this.messageRef = this.afs.doc(`popupMessages/${documentName}`).valueChanges().subscribe(res => {
-			message.title = res['title'];
-			message.content = res['content'];
-			message.modalOpen = true;
-		});
-		
-		return message;
 	}
 
 	getUserInfo(userId) {

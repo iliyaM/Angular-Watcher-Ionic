@@ -5,7 +5,6 @@ import { TvItem } from '../../interfaces/tv-item';
 import { ApiProvider } from '../../providers/api/api';
 
 //rxjs
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 import { DbProvider } from '../../providers/db/db';
@@ -154,7 +153,7 @@ posterSizes = {
 		if(episodeData.episodesReleaseDate == null) {
 			let toast = this.toastCtrl.create({
 				message: 'What is that mean? we dont have anymore information about upcoming episodes.  Or the season has released all of its episodes at once. you can check by clicking the season number.  The series will still be added to your profile account.',
-				duration: 3000
+				duration: 6000
 			});
 			toast.present();
 		  	episodeData.episodesReleaseDate = 0;

@@ -1,5 +1,3 @@
-import { Injectable } from '@angular/core';
-
 const adjectives = [
     'Adorable',
     'Amazing',

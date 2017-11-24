@@ -67,9 +67,10 @@
 					<label class="randomizer">
 						<button (click)="generateRandom()">Name Randomizer</button>
 					</label>
-				<button type="submit" class="submitBtn" [disabled]="singupForm.invalid">Confirm</button>
+				<button type="submit" class="submitBtn" [disabled]="singupForm.invalid">Submit</button>
 			</form>
 		</div>
+
 	
 		<!-- Info box -->
 		<div class="profileInfo">
@@ -122,7 +123,7 @@
 
 	<ng-template #signIn>
 		<section class="signIn">
-			<button class="singInButton" (click)="googleLogin()">SignIn</button>
+			<button class="singInButton" (click)="auth.googleLogin()">SignIn</button>
 		</section>
 	</ng-template>
 	

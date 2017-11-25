@@ -230,3 +230,29 @@ button.subscriber {
 	padding: 1em;
 	width: 50%;
 }
+
+
+/*
+ * Toast messeging styles
+ * subscribeSucess, bingeWatching , endedSeries, notLoggedIn, seasonOver.
+*/
+
+.subscribeSucess div.toast-container {
+	background-color: $color_toast_sucess;
+}
+
+.bingeWatching div.toast-container {
+	background-color: $color_toast_info;
+}
+
+.endedSeries div.toast-container {
+	background-color: $color_toast_error;
+}
+
+.notLoggedIn div.toast-container {
+	background-color: $color_toast_error;
+}
+
+.seasonOver div.toast-container {
+	background-color: $color_toast_info;
+}

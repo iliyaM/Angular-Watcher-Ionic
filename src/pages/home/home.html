@@ -1,15 +1,14 @@
 <ion-header>
-    <ion-navbar>
-  
-	<ion-title item-start>
-      <h2 class="navTitle">Home Page</h2>
-		<div *ngIf="auth.user | async as user; else guest" class="avatarIcon" (click)="navigateToProfilePage()">
-			<h3>{{ user.displayName }}</h3>
-			<svg><use attr.xlink:href="assets/sprite.svg#{{user.avatar}}"></use></svg>
-		</div>
-	</ion-title>
-    </ion-navbar>
-  </ion-header>
+	<ion-navbar>
+		<ion-title item-start>
+			<h2 class="navTitle">Home Page</h2>
+			<div *ngIf="auth.user | async as user; else guest" class="avatarIcon" (click)="navigateToProfilePage()">
+				<h3>{{ user.displayName }}</h3>
+				<svg><use attr.xlink:href="assets/sprite.svg#{{user.avatar}}"></use></svg>
+			</div>
+		</ion-title>
+	</ion-navbar>
+</ion-header>
   
   <!-- Template -->
   <ng-template #guest>

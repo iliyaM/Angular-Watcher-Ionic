@@ -79,32 +79,34 @@ posterSizes = {
 	//Check if use loggen in
 	if(this.user == null) {
 		let toast = this.toastCtrl.create({
-			message: 'You must me logged in to use this feature',
-			duration: 3000
+			message: 'You must be a logged in to use this feature',
+			duration: 6000,
+			position: 'middle',
+			showCloseButton: true,
+			closeButtonText: 'Ok',
+			dismissOnPageChange: true,
+			cssClass: "notLoggedIn",
 		});
 		toast.present();
 		return;
-	}
+
+	} else {
 
 	//Check status of tvShow
 	if(this.tvItem.status === "Ended") {
 
 		let toast = this.toastCtrl.create({
 			message: 'Sorry this series is over. you cannot subsribe to ended series.',
-			duration: 3000
+			duration: 6000,
+			position: 'middle',
+			showCloseButton: true,
+			closeButtonText: 'Ok',
+			dismissOnPageChange: true,
+			cssClass: "endedSeries"
 		});
 		toast.present();
-		
 		return;
 	}
-
-	if(this.user != null) {
-
-		let toast = this.toastCtrl.create({
-			message: 'Tv-Show had beed added to your subsriptions list!',
-			duration: 3000
-		});
-		toast.present();
 		this.getEpisode(this.user);
 	}
 
@@ -112,7 +114,6 @@ posterSizes = {
 
   //Grab Series information
   getEpisode(user) {
-	console.log(user)
 	let episodeData = {
 		episodesReleaseDate: null,
 		episodeNumber: null,
@@ -122,12 +123,63 @@ posterSizes = {
     let today = moment();
     // Grab final season number and id
     let finalSeason = this.tvItem.seasons[this.tvItem.seasons.length -1].season_number;
-    let seasonId = this.tvItem.seasons[this.tvItem.seasons.length -1].id;
-
+	let seasonId = this.tvItem.seasons[this.tvItem.seasons.length -1].id;
+	
     //Query api for episode realease date.
     this.finalEpisodeSubscription = this.api.findFinalEpisode(this.tvItem.id, finalSeason).subscribe(res => {
 
-		for(var i in res.episodes) {
+		let date = res.episodes[0]['air_date'];
+
+
+		for(var i =0; i < res.episodes.length; i ++) {
+			
+			console.log('Loop in Runing')
+			//If all is the same day of relase the first on and the last one.
+			if( res.episodes[0]['air_date'] == res.episodes[res.episodes.length - 1]['air_date']) {
+
+				// Set Episode Release date to 0
+				episodeData.episodesReleaseDate = 0; 
+
+				console.log('Found BingeWatching Series');
+
+				//Binge watching toast message
+				let toast = this.toastCtrl.create({
+					message:	`Yey binge watching series!
+									All the episodes have been released at once!
+									The series will still be added to your profile page for statistics. 
+								`,
+					duration: 6000,
+					position: 'middle',
+					showCloseButton: true,
+					closeButtonText: 'Ok',
+					dismissOnPageChange: true,
+					cssClass: "bingeWatching"
+				});
+				toast.present();
+				break;
+			}
+
+			// Check last item if its out yet.
+			if( moment( res.episodes[res.episodes.length - 1]['air_date'] ) < today ) {
+				console.log('Last episode has been released')
+
+				//All episodes have been released
+				let toast = this.toastCtrl.create({
+					message:	`Unfortunately this season is over.. Or we dont have information about upcoming episodes.
+								You can check the season info and see for yourself.
+								The show will still be add to your profile page.
+								`,
+					duration: 6000,
+					position: 'middle',
+					showCloseButton: true,
+					closeButtonText: 'Ok',
+					dismissOnPageChange: true,
+					cssClass: "seasonOver"
+				});
+				toast.present();
+
+				break;
+			}
 
 			//If episode releases today
 			if( moment(res.episodes[i]['air_date']).startOf('day').isSame(today.startOf('day')) ) {
@@ -148,16 +200,6 @@ posterSizes = {
 				break;
 			}
 		}
-		
-		// Check if nothing found set to 0
-		if(episodeData.episodesReleaseDate == null) {
-			let toast = this.toastCtrl.create({
-				message: 'What is that mean? we dont have anymore information about upcoming episodes.  Or the season has released all of its episodes at once. you can check by clicking the season number.  The series will still be added to your profile account.',
-				duration: 6000
-			});
-			toast.present();
-		  	episodeData.episodesReleaseDate = 0;
-		}
 
 		//Construct data object for firestore
 		const data = {
@@ -171,6 +213,18 @@ posterSizes = {
 			userName: user.displayName,
 			episode: episodeData,
 		}
+
+		let toast = this.toastCtrl.create({
+			message:	`Series has been added to your personal profile page. 
+						you will be notified via Email on upcoming episodes`,
+			duration: 6000,
+			position: 'top',
+			showCloseButton: true,
+			closeButtonText: 'Ok',
+			dismissOnPageChange: true,
+			cssClass: "subscribeSucess"
+		});
+		toast.present();
 
 		//Go populate Db
 		this.db.populateFirestore(data);

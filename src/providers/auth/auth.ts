@@ -32,26 +32,6 @@ userSubscriber: Subscription;
 		});
 	}
 
-	GimmeSomeCoffe(user) {
-		console.log('Gimme Some Coffe');
-		console.log(user);
-
-		// this.afs.doc<User>(`users/${user.uid}/info/${user.uid}`).valueChanges().subscribe(res => {
-		// 	if(res == null) {
-		// 		//Go create a man a document in this biatch!
-		// 		this.updateUserData(user);
-		// 	} else {
-		// 		// Allready has a record here
-		// 		let toast = this.toastCtrl.create({
-		// 			message: `MR ${user.displayName} Welcome back. we missed you...`,
-		// 			duration: 5000
-		// 		});
-		// 		toast.present();
-		
-		// 	}
-		// });
-	}
-
 	googleLogin() {
 		const provider = new firebase.auth.GoogleAuthProvider();
 		this.afAuth.auth.signInWithRedirect(provider).then(function() {
@@ -64,7 +44,6 @@ userSubscriber: Subscription;
 
 	//Create data from loginProvider and navigate
 	private updateUserData(userCredential) {
-
 		//Get a refrence to the document
 		this.userDocument = this.afs.doc(`users/${userCredential.uid}/info/${userCredential.uid}`);
 
@@ -72,6 +51,7 @@ userSubscriber: Subscription;
 
 			//Can a man get a document around here?!
 			if(res == null) {
+				console.log('Setting up Document')
 				//Construct user data object
 				const data: User = {
 					userId: userCredential.uid,
@@ -79,23 +59,10 @@ userSubscriber: Subscription;
 					displayName: userCredential.displayName,
 					avatar: 'icon-man',
 				}
-
 				this.userDocument.set(data);
-
-				// Make a toast for our new guest.
-				let toast = this.toastCtrl.create({
-					message: `I see you new around here ${data.displayName} taking you baking information it will only take a second...`,
-					duration: 6000
-				});
-				toast.present();
-
 			} else {
-				// Allready has a record here
-				let toast = this.toastCtrl.create({
-					message: `MR ${userCredential.displayName} Welcome back. we missed you...`,
-					duration: 6000
-				});
-				toast.present();
+				console.log('Allready Have Document');
+				return;
 			}
 		});
 	}

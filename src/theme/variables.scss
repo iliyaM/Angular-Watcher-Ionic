@@ -56,6 +56,11 @@ $color_white: #f9fafb;
 $color_cream: #EDF2F6;
 $color_danger: #f53d3d;
 
+$color_toast_sucess: #63B680;
+$color_toast_info: #48555E;
+$color_toast_warn: #FAA922;
+$color_toast_error: #CB5F55;
+
 @mixin darkbutton() {
   color: $color_white;
   background-color: $color_purple;
